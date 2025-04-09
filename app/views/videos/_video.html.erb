@@ -1,0 +1,21 @@
+<div id="<%= dom_id video %>">
+  <p>
+    <strong>Title:</strong>
+    <%= video.title %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= video.description %>
+  </p>
+
+  <p>
+    <strong>File:</strong>
+    <% if video.video.attached? %>
+      <%= video_tag url_for(video.video), controls: true, width: 640, height: 360, autoplay: false, loop: false, preload: "metadata", class: "rounded shadow" %>
+    <% else %>
+      <p>No video uploaded.</p>
+    <% end %>
+  </p>
+
+</div>
