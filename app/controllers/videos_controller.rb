@@ -54,9 +54,14 @@ class VideosController < ApplicationController
 
   def upload_to_youtube
     @video = Video.find(params[:id])
-    uploader = YoutubeUploader.new
-    uploader.upload_video(@video)
-    redirect_to @video, notice: 'Video uploaded to YouTube!'
+    uploader = YtUploader.new(@video)
+    
+    begin
+      uploader.upload
+      redirect_to @video, notice: 'Video uploaded to YouTube!'
+    rescue => e
+      redirect_to @video, alert: "Upload failed: #{e.message}"
+    end
   end
 
 
